@@ -1,0 +1,2 @@
+1. 1_ec2_server_with_nginx_installation.tf this file uses terraform to create vpc, 1 public subnet, and create an instance in that public subnet, run nginx installation at the time of ec2 provisioning
+2. 2_ec2_server_with_nginx_installation_key_pairs_creation this file will create ec2 server in public subnet, also create ssh key pairs public and private key, private key i am storing in local machine, public key is stored in server

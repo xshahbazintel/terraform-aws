@@ -1,0 +1,109 @@
+what is provider in terraform
+terraform is a plugin that connects with your cloud provider and creates infrastructure
+
+can we have mutiple providers in terraform?
+yes we can have multiple providers in terraform, there is an alias in provider that differentiates between regions
+aliases in line7 and line13 are to be different
+provider "aws" {
+  alias = "provider"
+  region = "us-east-1" #region in aws
+
+}
+
+provider "aws" {
+  alias = "provider2"
+  region = "us-west-2" #region in aws
+
+}
+
+
+what are types of variables in terraform?
+Input variables: variables that are used  to parameterize terraform configurations. They allow you to pass variable to terraform modules and configurations from other files.
+sample var in terraform
+variable "example_var" {
+  description = "An example input variable"
+  type        = string
+  default     = "default_value"
+}
+output variables: Output variables allow you to expose values from your module or configuration, making them available for use in other parts of your Terraform setup.
+output "example_output" {
+  description = "An example output variable"
+  value       = resource.example_resource.example.id
+}
+
+what are conditional expressions in terraform?
+condition ? true_val : false_val  #if condition is true then true_val else false_val
+var.a != "" ? var.a : "default-a" #If var.a is an empty string then the result is "default-a", but otherwise it is the actual value of var.a
+
+what are some builtin functions in terraform?
+The Terraform language includes a number of built-in functions that you can call from within expressions to transform and combine values. 
+example:  
+endswith(string, suffix)
+
+what is terraform state file, how do you manage it, what are its dis advantages
+
+terraform statefile maintains state of infra
+
+if terraformstatefile is stored in github we face below challeneges
+
+protecting statefile, statefile consists of secrets stored, if anyone gets hands of it security will be compromised
+if you make any change to infra then you have to do terraform apply and update the statefile 
+else statefile will be corrupted
+filename should be backend.tf this has all the configuration where s3 .tfstate file is stored
+and dynamodb lock details 
+
+you can manage statefile using remotebackends 
+s3 bucket
+hashicorp cloud 
+azure blob storage are some examples to manage statefiles
+sample
+terraform {
+  backend "s3" {
+    bucket = "shahbaz-s3-terraform1" 
+    key = "terraform-practice/terraform.tfstate"
+    region = "us-east-1"
+
+  }
+}
+
+what is terraform provisioner?
+You can use provisioners to model specific actions on the local machine or on a remote machine in order to prepare servers or other infrastructure objects for service.
+provisioner types
+local-exec: runs commands on local machine where you are executing terraform infra
+remote-exec: runs commands on remote machine which terraform is creating, this is like bootstraping user data scripts while creating instances
+while doing remote-exec you need to have connection block so that Terraform knows how to communicate with the server.
+file: used to copy files and directories onto remote server
+All provisioners support the when and on_failure meta-arguments, on on_failure if provisioner has to continue or stops
+create time provisioner: run during create time
+destroy time provisioner: runs while destroying infra
+
+how do you create new workspace in terraform
+
+terraform workspace new dev #create new workspace
+terraform workspace select dev #to move to that workspace
+terraform workspace show #shows your workspace
+
+
+how do you maintain version for modules in terraform?
+Move the vpc Module to Its Own Git Repository, Version the vpc Module do tag and release, Reference the Versioned Module in the Main Terraform Project
+
+
+module "vpc" {
+  source = "git::https://github.com/your-username/vpc-module.git?ref=v1.0.0"
+  
+  # Module inputs
+  name          = "my-vpc"
+  cidr          = "10.0.0.0/16"
+  azs           = ["us-west-2a", "us-west-2b"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets  = ["10.0.3.0/24", "10.0.4.0/24"]
+}
+
+
+
+
+
+how do you override lock, when someone else is making changes 
+
+how do you import resources created manually in terraform
+
