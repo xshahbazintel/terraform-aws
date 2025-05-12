@@ -26,3 +26,46 @@ export TF_LOG = <log-level>
 
 Terraform Import:
 terraform import aws_instance.<resource-name> <unique-identifier_of_resource>
+
+
+checking if else:
+
+
+
+
+variable "cloud_users" {
+     type = string
+     default = "andrew:ken:faraz:mutsumi:peter:steve:braja"
+  
+}
+
+resource "aws_iam_user" "cloud" {
+  name = split(":",var.cloud_users)[count.index]
+  count = length(split(":",var.cloud_users))
+}
+
+
+how do you handle sensitive information in terraform 
+
+use sensitive true to variable
+even you use sensitive to variable, statefile will still have those values, 
+
+variable "db_username" {
+  description = "Database administrator username"
+  type        = string
+  sensitive   = true
+}
+
+variable "db_password" {
+  description = "Database administrator password"
+  type        = string
+  sensitive   = true
+}
+
+use Environment Variables to export sensitive data
+
+
+Store the Terraform state file in the centralized AWS account where you operate Secrets Manager. Store the file in an Amazon Simple Storage Service (Amazon S3) bucket, and configure policies that restrict access to it. 
+
+
+integrate with vault services
