@@ -17,7 +17,7 @@ local is provider file is the plugin or resource it will create textfile is logi
 terraform taint:
 when you create a resource, suppose an ec2 instance, after the instance is created you are storing some of the info in local path using local provisioner and if the file path is incorrect, the instance is created but still terraform will mark it as taint meaning failed to create, when you apply once again it will try to create once again
 
-terraform tain aws_ec2.webserver 
+terraform taint aws_ec2.webserver 
 terraform untaint aws_ec2.webserver
 
 export TF_LOG_PATH = <path_to_store_terraform_logs>
@@ -69,3 +69,8 @@ Store the Terraform state file in the centralized AWS account where you operate 
 
 
 integrate with vault services
+
+what is resource targetting?
+
+
+

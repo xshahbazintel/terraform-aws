@@ -1,7 +1,7 @@
 terraform validate #to validate our resource files
 terraform fmt
 terraform show  #shows terraform statefile with created resources
-terraform show -json #prints show output in json format
+terraform show -json #prints statefile output in json format
 terrafom providers #shows all providers installed 
 terraform providers mirror /root/new/path #mirrors proivders to /root/new/path
 
@@ -20,3 +20,7 @@ terraform graph | dot -Tsvg >graph.svg
 
 
 
+terraform taint
+terraform untaint
+
+terraform import 

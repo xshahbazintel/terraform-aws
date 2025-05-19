@@ -42,14 +42,3 @@ resource "local_sensitive_file" "name" {
 
 
 
-version constraints:
-when you want terraform to use a particular provider we use version constraints
-
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 1.0.4"
-    }
-  }
-}

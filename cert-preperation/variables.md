@@ -52,3 +52,9 @@ resource "local_file" "krill" {
   content = "krill"
 }
 
+
+local variables
+
+
+
+You can mark output values as ephemeral in child modules to pass ephemeral values between modules while avoiding persisting those values to state or plan files. This is useful for managing credentials, tokens, or other temporary resources you do not want to store in Terraform state files.

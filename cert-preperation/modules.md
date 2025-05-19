@@ -6,3 +6,13 @@ module "iam_iam-user" {
   create_iam_user_login_profile = false
   # insert the 1 required variable here
 }
+
+
+how to refer modules in main.tf
+
+
+module "module_sampe" #this can be anything {
+
+  source = ""  #nrequired field
+  version = "" #not mandatory
+}
